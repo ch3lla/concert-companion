@@ -1,0 +1,23 @@
+body {
+    background-image: linear-gradient(to right, #1db954, #097969 );
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.my-button {
+    border-radius: 8px;
+    width: 250px;
+    height: 80px;
+    font-size: 23px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition-duration: 0.4s;
+}
+
+.my-button:hover {
+    box-shadow: 0 12px 16px 0;
+}
