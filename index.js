@@ -3,17 +3,23 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieSession = require('cookie-session');
-const authRoute = require('./routes/auth');
+const session = require('express-session');
+const {passport, router} = require('./utils/auth');
+const favArtistRoute = require('./utils/get_new_fav_artist');
 
 // middleware
-app.use(cookieSession({
-    name: 'spotify-auth-session',
-    keys: ['key1', 'key2']
+app.use(session({
+    secret: 'spotify-auth-session',
+    resave: false,
+    saveUnintialized: false
 }));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(authRoute);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(router);
+app.use(favArtistRoute);
 
 // routes
 app.get('/', (req, res) => {
