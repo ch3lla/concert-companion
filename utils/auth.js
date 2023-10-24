@@ -3,6 +3,9 @@ const router = require('express').Router();
 const {Profile, VerifyCallback} = require('passport-spotify');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 
+
+let globalToken;
+
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -17,6 +20,8 @@ passport.use(new SpotifyStrategy({
     callbackURL: process.env.CALLBACK_URL
   },
   function (accessToken, refreshToken, expires_in, profile, done) {
+    console.log(accessToken);
+    globalToken = accessToken;
     process.nextTick(function () {
       return done(null, profile);
     });
@@ -32,7 +37,7 @@ router.get(
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/home');
+    res.render('home', {data: globalToken});
   }
 );
 

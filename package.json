@@ -8,16 +8,18 @@
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chukwuma Emmanuella",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.5.1",
     "cookie-session": "^2.0.0",
     "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.2",
+    "node-localstorage": "^3.0.5",
     "passport": "^0.6.0",
     "passport-spotify": "^2.0.0"
   }

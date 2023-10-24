@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+
+<body>
+    <h1>Concert Companion</h1>
+    <p>you rnumber one companion to music festivals</p>
+
+    <span id="token">
+        <%= data %>
+    </span>
+
+    <form id="artistForm">
+        <label for="artist">Enter Performing Artists</label>
+        <input type="text" id="artist" name="artist">
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const t = document.getElementById('token').innerText;
+        console.log(t);
+        console.log(data);
+        document.getElementById('artistForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form submission
+            //console.log(localStorage === window.localStorage)
+            const token = localStorage.getItem("token");
+            console.log(localStorage);
+            const artistsInput = document.getElementById('artist');
+            const artists = artistsInput.value.split(',').map(artist => artist.trim()).join(" ");
+            fetch(`https://api.spotify.com/v1/search?type=artist&q=${artists}`,
+                { headers: { Authorization: `Bearer ${t}` } }
+            )
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res);
+                });
+            // if (artists.length < 2 || artists.length > 4) {
+            //     alert('Please enter between 2 and 4 artists.');
+            // }
+        });
+    </script>
+</body>
+
+</html>
