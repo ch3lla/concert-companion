@@ -8,8 +8,7 @@ router.get('/home',  async(req, res) => {
     res.render('home', {
         title: 'Page One',
         libs: ['page-one', 'utils'],
-        styles: ['page-one'],
-        name: topArtists
+        styles: ['page-one']
       });
 })
 
@@ -29,9 +28,7 @@ router.get(`/home?${artists}`, async (req, res) => {
     }))    
 })
 
-let topArtists;
 router.get('/top/artists', async (req, res) => {
-    //res.render('home', {name: topArtists});
     console.log(returnToken());
     try {
         const response = await fetch(`https://api.spotify.com/v1/me/top/artists?limit=5&offset=0`, {
@@ -40,7 +37,7 @@ router.get('/top/artists', async (req, res) => {
         });
         const data = await response.json();
         console.log(data);
-        const artists = data.items.map(artist => ({
+        artists = data.items.map(artist => ({
             name: artist.name,
             _id: artist.id
         }));
