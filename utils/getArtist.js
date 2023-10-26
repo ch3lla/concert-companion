@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const axios = require('axios');
+const {returnToken} = require('./auth');
 
 let artists;
 
@@ -7,19 +8,10 @@ router.get('/home',  async(req, res) => {
     res.render('home', {
         title: 'Page One',
         libs: ['page-one', 'utils'],
-        styles: ['page-one']
+        styles: ['page-one'],
+        name: topArtists
       });
 })
-
-// document.getElementById('artistForm').addEventListener('submit', function (event) {
-//     event.preventDefault(); // Prevent the form submission
-//     const artistsInput = document.getElementById('artist');
-//     const artists = artistsInput.value.split(',').map(artist => artist.trim());      
-//     console.log(artists);    
-//     if (artists.length < 2 || artists.length > 4) {
-//         alert('Please enter between 2 and 4 artists.');
-//     }
-// });
 
 router.get(`/home?${artists}`, async (req, res) => {
 
@@ -34,36 +26,28 @@ router.get(`/home?${artists}`, async (req, res) => {
     })
     .then((response => {
         console.log(response);
-    }))
-    // axios.get(`https://api.spotify.com/v1/artists?ids=${artists}`, {
-    //     headers: {
-    //         Authorization: `${token_type} ${access_token}`
-    //     }
-    // })
-    
+    }))    
 })
 
-function formatJsonData(jsonData){
-    const artistsList = jsonData.artists;
-    const items = artistsList.items;
-    const ids = [];
-
-    for (const item of items) {
-        const artistId = item.id;
-        ids.push(artistId);
-      }
-    
-      return ids;
-}
-
-router.get('/artists/{:id}', async (req, res) => {
-    axios.get("https://api.spotify.com/v1/me/shows?offset=0&limit=5")
-    .then(res => {
-        response.data(res);
-    })
-    .catch(error => {
-        res.send(error);
-    });
-})
+let topArtists;
+router.get('/top/artists', async (req, res) => {
+    //res.render('home', {name: topArtists});
+    console.log(returnToken());
+    try {
+        const response = await fetch(`https://api.spotify.com/v1/me/top/artists?limit=5&offset=0`, {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${returnToken()}` }
+        });
+        const data = await response.json();
+        console.log(data);
+        const artists = data.items.map(artist => ({
+            name: artist.name,
+            _id: artist.id
+        }));
+        console.log(artists);
+    } catch(error) {
+        console.error(error);
+    }
+});
 
 module.exports = router;
