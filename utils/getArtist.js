@@ -38,8 +38,9 @@ router.get('/top/artists', async (req, res) => {
         const data = await response.json();
         console.log(data);
         artists = data.items.map(artist => ({
+            _id: artist.id,
             name: artist.name,
-            _id: artist.id
+            genres: artist.genres
         }));
         console.log(artists);
     } catch(error) {
