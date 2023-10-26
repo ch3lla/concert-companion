@@ -20,13 +20,17 @@ passport.use(new SpotifyStrategy({
     callbackURL: process.env.CALLBACK_URL
   },
   function (accessToken, refreshToken, expires_in, profile, done) {
-    console.log(accessToken);
     globalToken = accessToken;
+    console.log(globalToken);
     process.nextTick(function () {
       return done(null, profile);
     });
   })
 );
+
+function returnToken (){
+  return globalToken;
+}
 
 router.post('/login', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'user-top-read', 'user-read-recently-played'], showDialog: true}), (req, res) => {
   res.status(200).send(req.profile);
@@ -41,4 +45,5 @@ router.get(
   }
 );
 
-module.exports = {passport, router};
+module.exports = {passport, router, returnToken};
+//module.exports.globalToken = globalToken;
