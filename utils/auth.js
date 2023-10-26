@@ -46,4 +46,3 @@ router.get(
 );
 
 module.exports = {passport, router, returnToken};
-//module.exports.globalToken = globalToken;
