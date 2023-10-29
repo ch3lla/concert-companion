@@ -3,7 +3,7 @@ const axios = require('axios');
 const {returnToken} = require('./auth');
 
 let artists;
-let mainArtist;
+let performingArtist;
 router.get('/home',  async(req, res) => {
     res.render('home', {
         title: 'Page One',
@@ -23,7 +23,7 @@ router.post(`/home`, async (req, res) => {
         });
         const items = await response.data;
         console.log(items);
-        mainArtist = items.artists.items.map(artist => ( {
+        performingArtist = items.artists.items.map(artist => ( {
             _id: artist.id,
             name: artist.name,
             genres: artist.genres
@@ -40,7 +40,7 @@ router.post(`/home`, async (req, res) => {
             genres: artist.genres
         }));
         console.log(artists);
-        console.log(mainArtist);
+        console.log(performingArtist);
     } catch (error){
         console.error(error);
     }
