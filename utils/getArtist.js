@@ -44,6 +44,14 @@ router.post(`/home`, async (req, res) => {
     } catch (error){
         console.error(error);
     }
-})
+});
+
+function returnPerformingArtists(){
+    return performingArtist;
+}
+
+function returnfavArtists(){
+    return artists;
+}
 
 module.exports = router;
