@@ -54,4 +54,4 @@ function returnfavArtists(){
     return artists;
 }
 
-module.exports = router;
+module.exports = {router, returnPerformingArtists, returnfavArtists};
