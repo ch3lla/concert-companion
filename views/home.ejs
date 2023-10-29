@@ -11,39 +11,35 @@
     <h1>Concert Companion</h1>
     <p>you rnumber one companion to music festivals</p>
 
-    <span id="token">
-        <%= data %>
-    </span>
-
-    <form id="artistForm">
+    <form id="artistForm" method="post">
         <label for="artist">Enter Performing Artists</label>
         <input type="text" id="artist" name="artist">
         <button type="submit">Submit</button>
     </form>
 
-    <script>
+    <!-- <script>
         const t = document.getElementById('token').innerText;
         console.log(t);
-        console.log(data);
         document.getElementById('artistForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form submission
-            //console.log(localStorage === window.localStorage)
             const token = localStorage.getItem("token");
-            console.log(localStorage);
-            const artistsInput = document.getElementById('artist');
-            const artists = artistsInput.value.split(',').map(artist => artist.trim()).join(" ");
-            fetch(`https://api.spotify.com/v1/search?type=artist&q=${artists}`,
+            const performingArtist = document.getElementById('artist').value;
+            //const artists = artistsInput.value.split(',').map(artist => artist.trim()).join(" ");
+            fetch(`https://api.spotify.com/v1/search?q=${performingArtist}&type=artist&limit=1&offset=0`,
                 { headers: { Authorization: `Bearer ${t}` } }
             )
-                .then((res) => res.json())
-                .then((res) => {
-                    console.log(res);
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    const artist = data.artists.items.map(artist => ({
+                        name: artist.name,
+                        id: artist.id,
+                        genres: artist.genres
+                    }));
+                    console.log(artist);
                 });
-            // if (artists.length < 2 || artists.length > 4) {
-            //     alert('Please enter between 2 and 4 artists.');
-            // }
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
