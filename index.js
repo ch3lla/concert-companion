@@ -3,7 +3,10 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const {passport, router} = require('./utils/auth');
-const favArtistRoute = require('./utils/getArtist');
+const {routerP, returnFavArtists} = require('./utils/getArtist');
+const morgan = require('morgan');
+
+console.log("getArtist: ", routerP);
 
 app.set('view engine', 'ejs');
 // middleware
@@ -15,10 +18,15 @@ app.use(session({
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
+//app.use(morgan('dev'));
+
+
 app.use(router);
-app.use(favArtistRoute);
+app.use(routerP);
 
 // routes
 app.get('/', (req, res) => {
