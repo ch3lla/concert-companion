@@ -21,7 +21,6 @@ passport.use(new SpotifyStrategy({
   },
   function (accessToken, refreshToken, expires_in, profile, done) {
     globalToken = accessToken;
-    console.log(globalToken);
     process.nextTick(function () {
       return done(null, profile);
     });
