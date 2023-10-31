@@ -1,21 +1,35 @@
 const axios = require('axios');
-const {returnPerformingArtist, returnFavArtists} = require('./getArtist');
 
-async function getAudioFeatures(artistId, accessToken){
-    const pArtist = returnPerformingArtist();
-    const pArtistId = pArtist._id;
-    const pArtistAudiofeatures = axios.get(`https://api.spotify.com/v1/audio-features?ids=${pArtistId}`, {
-        headers: {Authorization: `Bearer ${accessToken}`}
-    });
-    const audiofeaturesResult = await pArtistAudiofeatures.data;
-    console.log(audiofeaturesResult);
-    
-    const fArtist = returnFavArtists();
-    const fArtistId = fArtist._id;
+async function getAudioFeatures(artistId, token){
+    let tracks;
+    let audiofeaturesResult;
+    //let token = returnToken();
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=NG`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await response.data;
+        tracks = data.tracks.map(track => ({
+            _trackid: track.id,
+            name: track.name
+        }));
+        console.log(tracks);
 
-    const fArtistAudiofeatures = axios.get(`https://api.spotify.com/v1/audio-features?ids=${fArtistId}`, {
-        headers: {Authorization: `Bearer ${accessToken}`}
-    });
-    const FAudiofeaturesResult = await fArtistAudiofeatures.data;
-    console.log(FAudiofeaturesResult);
+        if (tracks.length > 0){
+            const trackIds = tracks.map(item => item._trackid);
+            const encodedTrackIds = trackIds.map(trackId => encodeURIComponent(trackId));
+            const pArtistAudiofeatures = axios.get(`https://api.spotify.com/v1/audio-features?ids=${encodedTrackIds}`, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            audiofeaturesResult = await pArtistAudiofeatures.data;
+            console.log(audiofeaturesResult);
+        } else {
+            console.error('No tracks available to fetch audio features.');
+        }
+    } catch (error){
+        console.error(error);
+    }
+    return audiofeaturesResult;
 }
+
+module.exports = getAudioFeatures;
