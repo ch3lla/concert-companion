@@ -3,10 +3,9 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const {passport, router} = require('./utils/auth');
-const {routerP, returnFavArtists} = require('./utils/getArtist');
+const artistRouter = require('./utils/getArtist');
 const morgan = require('morgan');
 
-console.log("getArtist: ", routerP);
 
 app.set('view engine', 'ejs');
 // middleware
@@ -26,7 +25,7 @@ app.use(passport.session());
 
 
 app.use(router);
-app.use(routerP);
+app.use(artistRouter);
 
 // routes
 app.get('/', (req, res) => {

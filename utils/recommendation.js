@@ -7,7 +7,7 @@ async function getRecommendation(artistIds, token){
     })
     const data = response.data;
     console.log("Recommendation data: ", data); */
-    
+    let artistNames;
     const requests = artistIds.map(artistId => {
         return axios.get(`https://api.spotify.com/v1/artists/${artistId}/related-artists`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -17,17 +17,13 @@ async function getRecommendation(artistIds, token){
       const allArtistNames = [];
       for (const response of responses) {
         if (response.status === 200) {
-          console.log(`Response for artist ID ${response.request.path}:`, response.data);
-          const artistNames = response.data.artists.map(artist => artist.name);
+           artistNames = response.data.artists.map(artist => artist.name);
             allArtistNames.push(...artistNames);
         } else {
           console.error(`Error for artist ID ${response.request.path}:`, response.statusText);
         }
-      }   
-      console.log("All artist names:", allArtistNames);
-    
-    // const data = response.data;
-    // console.log("recommendation: ", data);
+      }
+      return allArtistNames;
 }
 
 module.exports = getRecommendation;

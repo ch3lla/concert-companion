@@ -3,6 +3,7 @@ const axios = require('axios');
 const {returnToken} = require('./auth');
 const getAudioFeatures = require('./getAudioFeatures');
 const getRecommendation = require('./recommendation');
+const binarySearch = require('./binarySearch');
 
 let artists;
 let mainArtist;
@@ -37,12 +38,24 @@ router.post(`/home`, async (req, res) => {
             genres: artist.genres
         }));
         const artistIds = artists.map(item => item._id);
-        console.log(artists);
-        console.log(mainArtist);
-        const artistId = mainArtist[0]._id;
-        const favArtist = artists[0]._id;
-        const recommended_data = getRecommendation(artistIds, token);
+        const artistNames = artists.map(item => item.name);
+        const pArtist = mainArtist.map(item => item.name);
+        const p_artist = pArtist.join(' ');
+        const recommendedData = await getRecommendation(artistIds, token);
+        const relatedArtists = recommendedData.sort();
+        const favArtists = artistNames.sort();
+        console.log(relatedArtists);
         //const audioFeatures = await getAudioFeatures(artistId, token);
+
+        const index = binarySearch(relatedArtists, p_artist);
+        const answer = binarySearch(favArtists, p_artist);
+        console.log("index: ", index, "answer: ", answer);
+
+        if (index != -1 && answer != -1){
+            console.log(`Artist ${p_artist} found at index ${index}.`);
+        } else {
+            console.log(`Artist ${p_artist} not found in the list.`);
+        }
 
     } catch (error){
         console.error(error);
