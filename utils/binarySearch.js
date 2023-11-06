@@ -1,23 +1,32 @@
-function binarySearch(artists, artistName) {
-    let left = 0;
-    let right = artists.length - 1;
-  
-    while (left <= right) {
-      const middle = Math.floor((left + right) / 2);
-      const artist = artists[middle];
-  
-      if (artist.name === artistName) {
-        return middle; // Artist found, return its index.
-      }
-  
-      if (artist.name < artistName) {
-        left = middle + 1;
-      } else {
-        right = middle - 1;
-      }
+function binarySearch(words, word) {
+  let left = 0;
+  let right = words.length - 1;
+
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
+    const currentWord = words[middle];
+
+    if (currentWord === word) {
+      return middle; // Word found, return its index.
     }
-  
-    return -1; // Artist not found.
+
+    if (currentWord < word) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
   }
 
-  module.exports = binarySearch;
+  return -1; // Word not found.
+}
+
+// const wordArray = [
+//   'apple', 'banana', 'cherry', 'date', 'elderberry',
+//   'fig', 'grape', 'honeydew', 'kiwi', 'lemon',
+//   'mango', 'nectarine', 'orange', 'peach', 'quince',
+//   'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xylophone'
+// ];
+
+// console.log(binarySearch(wordArray, 'strawberry'));
+
+module.exports = binarySearch;
