@@ -5,41 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width>, initial-scale=1.0">
     <title>HomePage</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <h1>Concert Companion</h1>
-    <p>your number one companion to music festivals</p>
+    <section class="logo-container">
+        <h2>Concert Companion</h2>
+        <p>your number one companion to music festivals</p>
+    </section>
+    <div class="form-container">
+        <form id="artistForm" method="post">
+            <label for="artist" class="label">Enter Performing Artists</label>
+            <input type="text" id="artist" name="artist">
+            <button type="submit" id="submit-button">Submit</button>
+        </form>
+    </div>
+    <!--<div class="loader"></div> -->
 
-    <form id="artistForm" method="post">
-        <label for="artist">Enter Performing Artists</label>
-        <input type="text" id="artist" name="artist">
-        <button type="submit">Submit</button>
-    </form>
 
-    <!-- <script>
-        const t = document.getElementById('token').innerText;
-        console.log(t);
+    <!--<script>
+        const loadingPage = document.getElementById('loading=page');
         document.getElementById('artistForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the form submission
-            const token = localStorage.getItem("token");
-            const performingArtist = document.getElementById('artist').value;
-            //const artists = artistsInput.value.split(',').map(artist => artist.trim()).join(" ");
-            fetch(`https://api.spotify.com/v1/search?q=${performingArtist}&type=artist&limit=1&offset=0`,
-                { headers: { Authorization: `Bearer ${t}` } }
-            )
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    const artist = data.artists.items.map(artist => ({
-                        name: artist.name,
-                        id: artist.id,
-                        genres: artist.genres
-                    }));
-                    console.log(artist);
-                });
-        });
+            event.preventDefault(); // PRevent the form submission
+
+        })
+        window.addEventListener("load", () => {
+            const loader = document.querySelector(".loader");
+            loader.classList.add("loader-hidden");
+            loader.addEventListener("transitionend", () => {
+                document.body.removeChild("loader");
+            })
+        })
+
     </script> -->
+    <script>
+        $('#artistForm').submit(function () {
+            $('body').append('<div class="loader">Loading...</div>');
+            $('.loader').show();
+        })
+    </script>
+
 </body>
 
 </html>

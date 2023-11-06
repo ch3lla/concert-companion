@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Results!</title>
+</head>
+
+<body>
+    <div class="artist">
+        <p>progress</p>
+        <div class="artist-display">
+            <img src=<%=p_artistDetails[0].images[0].url%> width="300" height="300">
+        </div>
+        <section>
+            <h2>
+                <%=randomNum%>% match!
+            </h2>
+        </section>
+        <div class="artist-details">
+            <a href=<%=p_artistDetails[0].external_urls.spotify%>><b>Artist's Spotify Link</b></a>
+        </div>
+    </div>
+</body>
+
+</html>
