@@ -5,22 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Results!</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 
 <body>
     <div class="artist">
         <p>progress</p>
-        <div class="artist-display">
-            <img src=<%=p_artistDetails[0].images[0].url%> width="300" height="300">
-        </div>
-        <section>
-            <h2>
-                <%=randomNum%>% match!
-            </h2>
-        </section>
-        <div class="artist-details">
-            <a href=<%=p_artistDetails[0].external_urls.spotify%>><b>Artist's Spotify Link</b></a>
-        </div>
+        <% if (p_artistDetails) { %>
+            <!-- Display artist details when available -->
+            <div class="artist-display">
+                <img src=<%=p_artistDetails[0].images[0].url%> width="300" height="300">
+                <p>
+                    <%= p_artistDetails[0].name %>
+                </p>
+                <section>
+                    <h2>
+                        <%=randomNum%>% match!
+                    </h2>
+                </section>
+                <div class="artist-details">
+                    <a href=<%=p_artistDetails[0].external_urls.spotify%>><b>Artist's Spotify Link</b></a>
+                </div>
+            </div>
+            <% } else if (!p_artistDetails) { %>
+                <img src=<%=artistDetails[0].images[0].url%> width="300" height="300">
+                <p>
+                    <%=artistDetails[0].name%>
+                </p>
+                <section>
+                    <h2>
+                        100% match!
+                    </h2>
+                </section>
+                <div class="artist-details">
+                    <a href=<%artist-details[0].external_urls.spotify%><b>Artist's Spotify Link</b></a>
+                    <% } else { %>
+                        <h2>This Artist is not the right match for you</h2>
+                        <% } %>
+                </div>
     </div>
 </body>
 

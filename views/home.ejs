@@ -15,34 +15,17 @@
 
 <body>
     <section class="logo-container">
-        <h2>Concert Companion</h2>
-        <p>your number one companion to music festivals</p>
+        <img src="/img/Concert_companion_white.png" alt="Concert Companion">
     </section>
     <div class="form-container">
         <form id="artistForm" method="post">
             <label for="artist" class="label">Enter Performing Artists</label>
-            <input type="text" id="artist" name="artist">
+            <input type="text" placeholder="Performing Artist" id="artist" name="artist">
             <button type="submit" id="submit-button">Submit</button>
         </form>
     </div>
-    <!--<div class="loader"></div> -->
 
 
-    <!--<script>
-        const loadingPage = document.getElementById('loading=page');
-        document.getElementById('artistForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // PRevent the form submission
-
-        })
-        window.addEventListener("load", () => {
-            const loader = document.querySelector(".loader");
-            loader.classList.add("loader-hidden");
-            loader.addEventListener("transitionend", () => {
-                document.body.removeChild("loader");
-            })
-        })
-
-    </script> -->
     <script>
         $('#artistForm').submit(function () {
             $('body').append('<div class="loader">Loading...</div>');
