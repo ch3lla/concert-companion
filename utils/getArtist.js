@@ -41,7 +41,7 @@ router.post(`/home`, async (req, res) => {
             return res.status(500).send('Failed to retrive data from Spotify.');
         }
 
-        mainArtist = mapArtistData(mainArtistResponse.data);
+        mainArtist = mapArtistData(mainArtistResponse.data.artists);
         artists = mapArtistData(artistsResponse.data);
 
         const artistNames = artists.map(item => item.name);
