@@ -184,6 +184,7 @@ button:hover {
 
 .artist-name {
     font-weight: bold;
+    color: white;
     font-family: 'DM Sans', sans-serif;
     display: block;
 }
@@ -192,6 +193,7 @@ span {
     font-weight: bold;
     font-size: 20px;
     display: block;
+    color: white;
 }
 
 a {
