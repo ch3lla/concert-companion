@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Urbanist&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 
@@ -18,31 +18,35 @@
         <% if (p_artistDetails) { %>
             <!-- Display artist details when available -->
             <div class="artist-display">
-                <img src=<%=p_artistDetails[0].images[0].url%> width="300" height="300">
-                <p>
+                <img class="artist-image" src=<%=p_artistDetails[0].images[0].url%> width="300" height="300">
+                <span class="artist-name">
                     <%= p_artistDetails[0].name %>
-                </p>
-                <section>
+                </span>
+                <span>
                     <h2>
-                        <%=randomNum%>% match!
+                        <b>
+                            <%=randomNum%>%
+                        </b> match!
                     </h2>
-                </section>
+                </span>
                 <div class="artist-details">
-                    <a href=<%=p_artistDetails[0].external_urls.spotify%>><b>Artist's Spotify Link</b></a>
+                    <a href=<%=p_artistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open in
+                                Spotify</b></button></a>
                 </div>
             </div>
             <% } else if (!p_artistDetails) { %>
-                <img src=<%=artistDetails[0].images[0].url%> width="300" height="300">
-                <p>
+                <img class="artist-image" src=<%=artistDetails[0].images[0].url%> width="300" height="300">
+                <span class="artist-name">
                     <%=artistDetails[0].name%>
-                </p>
-                <section>
+                </span>
+                <span>
                     <h2>
-                        100% match!
+                        <b>100% </b>match!
                     </h2>
-                </section>
+                </span>
                 <div class="artist-details">
-                    <a href=<%artist-details[0].external_urls.spotify%><b>Artist's Spotify Link</b></a>
+                    <a href=<%artistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open in
+                                Spotify</b></button></a>
                     <% } else { %>
                         <h2>This Artist is not the right match for you</h2>
                         <% } %>
