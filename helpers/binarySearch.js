@@ -20,13 +20,4 @@ function binarySearch(words, word) {
   return -1; // Word not found.
 }
 
-// const wordArray = [
-//   'apple', 'banana', 'cherry', 'date', 'elderberry',
-//   'fig', 'grape', 'honeydew', 'kiwi', 'lemon',
-//   'mango', 'nectarine', 'orange', 'peach', 'quince',
-//   'raspberry', 'strawberry', 'tangerine', 'watermelon', 'xylophone'
-// ];
-
-// console.log(binarySearch(wordArray, 'strawberry'));
-
 module.exports = binarySearch;

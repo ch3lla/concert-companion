@@ -1,12 +1,6 @@
 const axios = require('axios');
 
 async function getRecommendation(artistIds, token){
-    /* const response = await axios.get(`
-    https://api.spotify.com/v1/recommendations?limit=1&market=NG&seed_artists=${artistId}&seed_trcaks=${trackId}`, {
-        headers: {Authorization: `Bearer ${token}`}
-    })
-    const data = response.data;
-    console.log("Recommendation data: ", data); */
     let artistNames;
     const requests = artistIds.map(artistId => {
         return axios.get(`https://api.spotify.com/v1/artists/${artistId}/related-artists`, {
