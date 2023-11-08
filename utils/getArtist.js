@@ -2,7 +2,8 @@ const router = require('express').Router();
 const axios = require('axios');
 const {returnToken} = require('./auth');
 const getRecommendation = require('./recommendation');
-const binarySearch = require('./binarySearch');
+const binarySearch = require('../helpers/binarySearch');
+const {mapArtistData, mapArtistDetails} = require('../helpers/mapping');
 
 
 // global variables
@@ -10,21 +11,11 @@ let artists;
 let mainArtist;
 let token;
 
-function mapArtistData(data) {
-    return data.items.map(artist => ({
-        _id: artist.id,
-        name: artist.name,
-        genres: artist.genres,
-    }));
-}
-
 router.get('/home', (req, res) => {
     res.render('home');
 })
 
 router.post(`/home`, async (req, res) => {
-    
-    //res.status(200).send('Request received successfully!');
     try{
         token = await returnToken();
         const performingArtist = req.body.artist;
@@ -51,35 +42,21 @@ router.post(`/home`, async (req, res) => {
         const recommendedData = await getRecommendation(artistIds, token);
         const relatedArtists = recommendedData.sort();
         const favArtists = artistNames.sort();
-        console.log(relatedArtists);
 
         const index = binarySearch(relatedArtists, p_artist);
         const answer = binarySearch(favArtists, p_artist);
-        console.log("index: ", index, "answer: ", answer);
 
 
         if (index !== -1){
             const randomNum = Math.floor(Math.random() * (70 - 65 + 1)) + 65;
-            const p_artistDetails = mainArtistResponse.data.artists.items.map(item => ({
-                external_urls: item.external_urls,
-                followers: item.followers,
-                genres: item.genres,
-                href: item.href,
-                id: item.id,
-                images: item.images,
-                name: item.name,
-                popularity: item.popularity,
-                type: item.type,
-                uri: item.uri
-            }));
+            const p_artistDetails = mainArtistResponse.data.artists.items.map(mapArtistDetails);
             res.render('result', {randomNum, p_artistDetails});
         } else if (answer !== -1){
-            console.log(`Artist ${p_artist} found at index ${answer}.`);
-            const artistsResponseDetails = artistsResponse.data.items;
-            const artistsDetails = artistsResponseDetails.find(artist => artist.name == p_artist);
-            console.log("artistsdeets --- ", artistsDetails);
+            const artistDetails = artistsResponse.data.items.filter((artist) => artist.name === p_artist);
+            res.render('result', {artistDetails, p_artistDetails: null});
         } else{
             console.log(`Artist ${p_artist} not found in the list.`);
+            res.render('result');
         }
     } catch (error){
         console.error(error);
