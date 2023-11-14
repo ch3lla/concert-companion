@@ -3,8 +3,7 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const {passport, router} = require('./utils/auth');
-const artistRouter = require('./utils/getArtist');
-const morgan = require('morgan');
+const artistRouter = require('./routes/getArtist');
 
 
 app.set('view engine', 'ejs');
@@ -21,7 +20,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(morgan('dev'));
 
 
 app.use(router);
