@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Results!</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/x-icon" href="/img/Concert_companion_white">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Urbanist&display=swap" rel="stylesheet">
@@ -15,12 +16,12 @@
 <body>
     <div class="artist">
         <p>progress</p>
-        <% if (p_artistDetails) { %>
+        <% if (performingArtistDetails) { %>
             <!-- Display artist details when available -->
             <div class="artist-display">
-                <img class="artist-image" src=<%=p_artistDetails[0].images[0].url%> width="300" height="300">
+                <img class="artist-image" src=<%=performingArtistDetails[0].images[0].url%> width="300" height="300">
                 <span class="artist-name">
-                    <%= p_artistDetails[0].name %>
+                    <%= performingArtistDetails[0].name %>
                 </span>
                 <span>
                     <h2>
@@ -30,11 +31,12 @@
                     </h2>
                 </span>
                 <div class="artist-details">
-                    <a href=<%=p_artistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open in
+                    <a href=<%=performingArtistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open
+                                in
                                 Spotify</b></button></a>
                 </div>
             </div>
-            <% } else if (!p_artistDetails) { %>
+            <% } else if (!performingArtistDetails) { %>
                 <img class="artist-image" src=<%=artistDetails[0].images[0].url%> width="300" height="300">
                 <span class="artist-name">
                     <%=artistDetails[0].name%>
@@ -48,7 +50,7 @@
                     <a href=<%artistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open in
                                 Spotify</b></button></a>
                     <% } else { %>
-                        <h2>This Artist is not the right match for you</h2>
+                        <h2>This Artist might not be a right match for you</h2>
                         <% } %>
                 </div>
     </div>
