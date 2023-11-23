@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Results!</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="icon" type="image/x-icon" href="/img/Concert_companion_white">
+    <link rel="icon" type="image/x-icon" href="/img/Concert_companion_white.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Urbanist&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
                     </h2>
                 </span>
                 <div class="artist-details">
-                    <a href=<%=performingArtistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open
+                    <a href="<%=performingArtistDetails[0].external_urls.spotify%>"><button class="spotify-link"><b>Open
                                 in
                                 Spotify</b></button></a>
                 </div>
@@ -46,7 +46,7 @@
                     </h2>
                 </span>
                 <div class="artist-details">
-                    <a href=<%artistDetails[0].external_urls.spotify%>><button class="spotify-link"><b>Open in
+                    <a href="<%=artistDetails[0].external_urls.spotify%>"><button class="spotify-link"><b>Open in
                                 Spotify</b></button></a>
                     <% } else { %>
                         <h2>This Artist might not be a right match for you</h2>
