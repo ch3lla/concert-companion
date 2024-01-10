@@ -1,23 +1,23 @@
-function binarySearch(words, word) {
+function binarySearch(artists, performingArtist) {
   let left = 0;
-  let right = words.length - 1;
+  let right = artists.length - 1;
 
   while (left <= right) {
     const middle = Math.floor((left + right) / 2);
-    const currentWord = words[middle];
+    const currentArtist = artists[middle];
 
-    if (currentWord === word) {
-      return middle; // Word found, return its index.
+    if (currentArtist === performingArtist) {
+      return middle; // Artist found, return its index.
     }
 
-    if (currentWord < word) {
+    if (currentArtist < performingArtist) {
       left = middle + 1;
     } else {
       right = middle - 1;
     }
   }
 
-  return -1; // Word not found.
+  return -1; // Artist not found.
 }
 
 module.exports = binarySearch;
